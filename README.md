@@ -6,7 +6,7 @@
 |:-------------------:|:--------------:|:------:|:---:|:----:|:---:|
 | **Status:**         |        -       |   -    | + <br> (default) | - | - |
 
-[Zinit](https://github.com/zdharma/zinit) can use `package.json` to
+[Zinit](https://github.com/z-shell/zinit) can use `package.json` to
 automatically:
 
 - get the plugin's Git repository OR release-package URL,
