@@ -1,4 +1,11 @@
-<h3>
+<h2 align="center">
+  <a href="https://github.com/z-shell/zi">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80" />
+  </a>
+❮ ZI ❯ Package - Zsh
+</h2>
+
+<h3 align="center">
 
 | **Package source:** | Source Tarball | Binary |             Git              | Node | Gem |
 | :-----------------: | :------------: | :----: | :--------------------------: | :--: | :-: |
@@ -6,17 +13,10 @@
 
 </h3>
 
-- [Introduction](#introduction)
-- [Install](#install)
-  - [Available `pack''` invocations](#available-pack-invocations)
-  - [Default Profile](#default-profile)
+- [Available `pack''` invocations](#available-pack-invocations)
+- [Default Profile](#default-profile)
 
-## Introduction
-
-> **[?]**
-> This repository not compatible with previous versions (zplugin, zinit).
->
-> Please upgrade to [ZI](https://github.com/z-shell-zi)
+> This repository compatible with [ZI](https://github.com/z-shell/zi)
 
 The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that can use the NPM package registry to automatically:
 
@@ -25,8 +25,6 @@ The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that can use t
   - there can be multiple lists of ices,
   - the ice lists are stored in _profiles_; there's at least one profile, _default_,
   - the ices can be selectively overridden.
-
-## Install
 
 ### Available `pack''` invocations
 
