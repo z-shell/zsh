@@ -35,6 +35,8 @@ The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that can use t
 zi pack for zsh
 
 # Install the selected zsh version
+zi pack"5.8.1" for zsh
+zi pack"5.8" for zsh
 zi pack"5.7.1" for zsh
 zi pack"5.6.2" for zsh
 zi pack"5.5.1" for zsh
@@ -42,7 +44,6 @@ zi pack"5.4.2" for zsh
 zi pack"5.3.1" for zsh
 zi pack"5.2.4" for zsh
 zi pack"5.1.1" for zsh
-zi pack"5.8" for zsh
 ```
 
 ### Default Profile
