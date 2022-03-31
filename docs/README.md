@@ -11,10 +11,8 @@
 |     **Status:**     |      :x:       |  :x:   | :heavy_check_mark: (default) | :x:  | :x: |
 
 </h3>
-
-</h3>
-  <img style="width:90%;height:auto" 
-       src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" alt="Preview" />
+<img style="width:90%;height:auto" 
+  src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" alt="Preview" />
 </td></tr></table></div>
   
 ## Available `pack''` invocations
