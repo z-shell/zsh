@@ -55,7 +55,8 @@ It copies the zsh binary onto `/bin/zsh`.
 
 ### ZI Completions Control
 
-Additonal package which moves the stock Zsh completions under the control of ZI.
+Package: [system-completions](https://github.com/z-shell/system-completions)
+> Moves the stock Zsh completions under the control of ZI (optional)
 
 ```shell
 zi pack for system-completions
