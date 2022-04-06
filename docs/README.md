@@ -2,7 +2,7 @@
 <tr><td align="center">
 <a title="ZI" target="_self" href="https://github.com/z-shell/zi/">
 <h2><img align="center" style="width:60px;height:auto" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" /></a>
-❮ ZI ❯ Package - Zsh </h2><h3> Builds and installs the newest Zsh (HEAD of the Git repository).</h3>
+❮ ZI ❯ Package - Zsh </h2><h3> Builds and installs the newest/selected zsh version</h3>
 </td></tr>
 <tr><td align="center"><h3>
   
