@@ -40,7 +40,8 @@ The ZI command that'll be run will be equivalent to:
 ```shell
 zi ice as"null" lucid atclone'./.preconfig; print -P %F{208}Building \
         Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
-        -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" ./configure \
+        -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
+        ./configure --with-tcsetpgrp --enable-pcre --enable-cap \
         --prefix="$ZPFX" >/dev/null && make install.bin install.fns \
         install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
         Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
