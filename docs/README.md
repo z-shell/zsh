@@ -2,18 +2,18 @@
   <h1><a target="_self" href="https://github.com/z-shell/zi/">
     <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" width="60px" height="60px" /></a>
     ❮ ZI ❯ Package - Zsh </h1>
-
 <h2 align="center">
+<p> Builds and installs the newest/selected zsh version </p>    
+</h2>
+<h3 align="center">
 
 | **Package source:** | Source Tarball | Binary |             Git              | Node | Gem |
 | :-----------------: | :------------: | :----: | :--------------------------: | :--: | :-: |
 |     **Status:**     |      :x:       |  :x:   | :heavy_check_mark: (default) | :x:  | :x: |
 
-</h2>
-  <h3 align="center">
-  <p> Builds and installs the newest/selected zsh version </p>
-  <p><img align="center" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p>
-  </h3>
+</h3>
+<p><img align="center" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p>
+</h3>
 </td></tr></table></div><hr />
 
 ## Available `pack''` invocations
