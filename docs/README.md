@@ -1,4 +1,4 @@
-<div align="center"><table><tr><td>
+<div align="center" width="100%"><table><tr><td>
   <h1><a target="_self" href="https://github.com/z-shell/zi/">
     <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" width="60px" height="60px" /></a>
     ❮ ZI ❯ Package - Zsh </h1>
@@ -12,7 +12,7 @@
 </h2>
   <h3 align="center">
   <p> Builds and installs the newest/selected zsh version </p>
-  <p><img align="100%" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p>
+  <p><img align="center" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p>
   </h3>
 </td></tr></table></div><hr />
 
