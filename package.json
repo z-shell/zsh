@@ -1,24 +1,15 @@
 {
-  "_from": "zsh@^5.8.1",
-  "_id": "zsh-zsh@5.8.1",
-  "_location": "/zsh",
-  "_resolved": "https://github.com/zsh-users/zsh/archive/zsh-5.8.1.tar.gz",
-  "_shasum": "3de17f9d7525dab2f3cf7a4e103a9ce936f8ebbc",
-  "_spec": "zsh@^5.8.1",
   "name": "zsh",
   "description": "Zsh – the programmer's shell",
-  "version": "5.8.1",
   "homepage": "https://github.com/zsh-users/zsh",
   "bugs": {
     "url": "https://github.com/zsh-users/zsh/issues"
   },
   "keywords": [
-    "Zshell",
+    "zpackage",
+    "zshell",
     "zsh"
   ],
-  "scripts": {
-    "test": "make test"
-  },
   "zsh-data": {
     "plugin-info": {
       "user": "zsh-users",
