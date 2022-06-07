@@ -1,20 +1,21 @@
-<div align="center"><table style="width:100%;height:auto">
-<tr><td align="center">
-<a title="ZI" target="_self" href="https://github.com/z-shell/zi/">
-<h2><img align="center" style="width:60px;height:auto" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" /></a>
-❮ ZI ❯ Package - Zsh </h2><h3> Builds and installs the newest/selected zsh version</h3>
-</td></tr>
-<tr><td align="center"><h3>
-  
+<div align="center"><table><tr><td>
+  <h1><a target="_self" href="https://github.com/z-shell/zi/">
+    <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" width="60px" height="60px" /></a>
+    ❮ ZI ❯ Package - Zsh </h1>
+
+<h2 align="center">
+
 | **Package source:** | Source Tarball | Binary |             Git              | Node | Gem |
 | :-----------------: | :------------: | :----: | :--------------------------: | :--: | :-: |
 |     **Status:**     |      :x:       |  :x:   | :heavy_check_mark: (default) | :x:  | :x: |
 
-</h3>
-<img style="width:90%;height:auto" 
-  src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" alt="Preview" />
-</td></tr></table></div>
-  
+</h2>
+  <h3 align="center">
+  <p> Builds and installs the newest/selected zsh version </p>
+  <p><img align="100%" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p>
+  </h3>
+</td></tr></table></div><hr />
+
 ## Available `pack''` invocations
 
 ```shell
@@ -55,6 +56,7 @@ It copies the zsh binary onto `/bin/zsh`.
 ### ZI Completions Control
 
 Package: [system-completions](https://github.com/z-shell/system-completions)
+
 > Moves the stock Zsh completions under the control of ZI (optional)
 
 ```shell
@@ -73,7 +75,7 @@ zi wait pack atload=+"zicompinit; zicdreplay" for system-completions
 
 > This repository compatible with [ZI](https://github.com/z-shell/zi)
 
-The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that can use the NPM package registry to automatically:
+The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that uses the [zsh-string-lib](https://github.com/z-shell/zsh-string-lib) to automatically:
 
 - get the plugin's Git repository OR release-package URL,
 - get the list of the recommended ices for the plugin,
