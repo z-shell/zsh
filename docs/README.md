@@ -1,18 +1,31 @@
-<div align="center" width="100%"><table><tr><td>
-  <h1><a target="_self" href="https://github.com/z-shell/zi/">
+<table align="center"><tr><td>
+<h1 align="center">
+  <p><a target="_self" href="https://github.com/z-shell/zi/">
     <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" width="60px" height="60px" /></a>
-    ❮ ZI ❯ Package - Zsh </h1>
+    ❮ ZI ❯ Package - Zsh </p></h1>
 <h2 align="center">
-<p> Builds and installs the newest/selected zsh version </p>    
+  <p> Builds and installs the newest/selected zsh version </p>    
 </h2>
 <h3 align="center">
-
-| **Package source:** | Source Tarball | Binary |             Git              | Node | Gem |
-| :-----------------: | :------------: | :----: | :--------------------------: | :--: | :-: |
-|     **Status:**     |      :x:       |  :x:   | :heavy_check_mark: (default) | :x:  | :x: |
-
-</h3>
-<p><img align="center" src="https://user-images.githubusercontent.com/59910950/161060980-8bc70578-e086-4a51-8cd4-ed3d7289f216.gif" width="100%" height="auto" alt="zi package zsh" /></p></td></tr></table></div><hr />
+<table>
+    <tr>
+        <td><b>Package source:</b></td>
+        <td>Source Tarball</td>
+        <td>Binary</td>
+        <td>Git</td>
+        <td>Node</td>
+        <td>Gem</td>
+    </tr>
+    <tr>
+        <td><b>Status:</b></td>
+        <td>❌</td>
+        <td>❌</td>
+        <td>✔️ (default)</td>
+        <td>❌</td>
+        <td>❌</td>
+    </tr>
+</table></h3>
+  <p><img align="center" src="https://user-images.githubusercontent.com/59910950/172880190-adea01ea-d389-4644-8dff-ef6f6185f203.png" width="100%" height="auto" alt="zi package zsh" /></p></td></tr></table><hr />
 
 ## Available `pack''` invocations
 
@@ -39,14 +52,14 @@ The ZI command that'll be run will be equivalent to:
 
 ```shell
 zi ice as"null" lucid atclone'./.preconfig; print -P %F{208}Building \
-        Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
-        -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
-        ./configure --prefix="$ZPFX" --enable-shared >/dev/null && make install.bin install.fns \
-        install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
-        Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
-        -P %F{160}The build failed.%f'
+  Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
+  -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
+  ./configure --prefix="$ZPFX" --enable-shared >/dev/null && make install.bin install.fns \
+  install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
+  Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
+  -P %F{160}The build failed.%f'
     atpull"%atclone" nocompile countdown git for \
-        zsh-users/zsh
+      zsh-users/zsh
 ```
 
 It copies the zsh binary onto `/bin/zsh`.
