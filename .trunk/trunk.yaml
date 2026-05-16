@@ -1,19 +1,35 @@
 version: 0.1
 cli:
-  version: 0.14.1-beta
+  version: 1.25.0
 repo:
   repo:
     host: github.com
     owner: z-shell
     name: zsh
 lint:
-  linters:
-    - name: markdownlint
-      command:
-        [markdownlint, -q, --config, .github/.markdownlint.yaml, "${target}"]
-      direct_configs: [.github/.markdownlint.yaml]
+  disabled:
+    - trufflehog
+    - checkov
   enabled:
-    - actionlint@1.6.15
-    - gitleaks@8.8.11
-    - markdownlint@0.31.1
-    - prettier@2.7.1
+    - git-diff-check
+    - yamllint@1.38.0
+    - actionlint@1.7.12
+    - gitleaks@8.30.1
+    - markdownlint@0.48.0
+    - prettier@3.8.3
+plugins:
+  sources:
+    - id: trunk
+      ref: v1.10.0
+      uri: https://github.com/trunk-io/plugins
+runtimes:
+  enabled:
+    - go@1.21.0
+    - node@22.16.0
+    - python@3.14.4
+actions:
+  enabled:
+    - trunk-announce
+    - trunk-check-pre-push
+    - trunk-fmt-pre-commit
+    - trunk-upgrade-available

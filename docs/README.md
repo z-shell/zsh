@@ -1,39 +1,23 @@
-<table align="center"><tr><td>
-<h1 align="center">
-  <p><a target="_self" href="https://github.com/z-shell/zi/">
-    <img align="center" src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="ZI Logo" width="60px" height="60px" /></a>
-    ❮ ZI ❯ Package - Zsh </p></h1>
-<h2 align="center">
-  <p> Builds and installs the newest/selected zsh version </p>    
-</h2>
-<h3 align="center">
-<table>
-    <tr>
-        <td><b>Package source:</b></td>
-        <td>Source Tarball</td>
-        <td>Binary</td>
-        <td>Git</td>
-        <td>Node</td>
-        <td>Gem</td>
-    </tr>
-    <tr>
-        <td><b>Status:</b></td>
-        <td>❌</td>
-        <td>❌</td>
-        <td>✔️ (default)</td>
-        <td>❌</td>
-        <td>❌</td>
-    </tr>
-</table></h3>
-  <p><img align="center" src="https://user-images.githubusercontent.com/59910950/172880190-adea01ea-d389-4644-8dff-ef6f6185f203.png" width="100%" height="auto" alt="zi package zsh" /></p></td></tr></table><hr />
+# ❮ Zi ❯ Package - Zsh
 
-## Available `pack''` invocations
+Build and install the newest or a selected Zsh version with
+[Zi](https://github.com/z-shell/zi).
 
-```shell
-# Install the newest zsh
+| Package source | Source tarball | Binary | Git | Node | Gem |
+| -------------- | -------------- | ------ | --- | ---- | --- |
+| Status         | ❌             | ❌     | ✔️  | ❌   | ❌  |
+
+## Install
+
+Install the newest supported Zsh revision:
+
+```zsh
 zi pack for zsh
+```
 
-# Install the selected zsh version
+Install a selected version:
+
+```zsh
 zi pack"5.9" for zsh
 zi pack"5.8.1" for zsh
 zi pack"5.8" for zsh
@@ -46,31 +30,27 @@ zi pack"5.2.4" for zsh
 zi pack"5.1.1" for zsh
 ```
 
-### Default Profile
+## Default profile behavior
 
-The ZI command that'll be run will be equivalent to:
+The default profile defined in `package.json`:
 
-```shell
-zi ice as"null" lucid atclone'./.preconfig; print -P %F{208}Building \
-  Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
-  -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
-  ./configure --prefix="$ZPFX" --enable-shared >/dev/null && make install.bin install.fns \
-  install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
-  Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
-  -P %F{160}The build failed.%f'
-    atpull"%atclone" nocompile countdown git for \
-      zsh-users/zsh
-```
+1. runs `./.preconfig`,
+2. configures Zsh under `$ZPFX` with the package's current `CPPFLAGS`,
+   `CFLAGS`, and `LDFLAGS`,
+3. runs `make install` when `yodl` is available, or falls back to
+   `make install.bin install.fns install.modules`,
+4. if `sudo` is available and `/bin/zsh` already exists, backs it up to
+   `/bin/zsh.bkp` and copies the newly built `Src/zsh` to `/bin/zsh`.
 
-It copies the zsh binary onto `/bin/zsh`.
+Versioned profiles first check out their matching upstream tag, then run the
+same build flow.
 
-### ZI Completions Control
+## Zsh completions
 
-Package: [system-completions](https://github.com/z-shell/system-completions)
+Use the [`system-completions`](https://github.com/z-shell/system-completions)
+package to move stock Zsh completions under Zi control:
 
-> Moves the stock Zsh completions under the control of ZI (optional)
-
-```shell
+```zsh
 zi pack for system-completions
 
 # Utilize Turbo
@@ -80,16 +60,17 @@ zi wait pack for system-completions
 zi wait pack atload=+"zicompinit; zicdreplay" for system-completions
 ```
 
-> Selectively enable and disable the completions with `cenable` and `cdisable`.
+Selectively enable and disable completions with `cenable` and `cdisable`.
 
----
+## About this package
 
-> This repository compatible with [ZI](https://github.com/z-shell/zi)
+This repository is compatible with [Zi](https://github.com/z-shell/zi).
 
-The [zsh-users/zsh](https://github.com/zsh-users/zsh) zsh package that uses the [zsh-string-lib](https://github.com/z-shell/zsh-string-lib) to automatically:
+The package targets the upstream
+[`zsh-users/zsh`](https://github.com/zsh-users/zsh) repository and uses
+[`zsh-string-lib`](https://github.com/z-shell/zsh-string-lib) to expose:
 
-- get the plugin's Git repository OR release-package URL,
-- get the list of the recommended ices for the plugin,
-  - there can be multiple lists of ices,
-  - the ice lists are stored in _profiles_; there's at least one profile, _default_,
-  - the ices can be selectively overridden.
+- the upstream Git source,
+- the recommended Zi ice modifiers,
+- named profiles for the supported historical versions,
+- selective overrides for those profile settings.
