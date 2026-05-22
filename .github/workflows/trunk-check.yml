@@ -28,3 +28,6 @@ jobs:
     uses: z-shell/.github/.github/workflows/trunk.yml@main
     with:
       arguments: --no-progress
+      check-mode: ${{ github.event_name == 'schedule' && 'all' || '' }}
+    secrets:
+      trunk-token: ${{ secrets.TRUNK_TOKEN }}
