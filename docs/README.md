@@ -46,6 +46,16 @@ zi pack"5.2.4" for zsh
 zi pack"5.1.1" for zsh
 ```
 
+### System installation (opt-in)
+
+By default the package builds Zsh into `$ZPFX` and does **not** touch the system
+shell. To also replace `/bin/zsh` (the original is backed up to `/bin/zsh.bkp`),
+set `ZSH_INSTALL_SYSTEM` when installing:
+
+```shell
+ZSH_INSTALL_SYSTEM=1 zi pack for zsh
+```
+
 ### Default Profile
 
 The ZI command that'll be run will be equivalent to:
