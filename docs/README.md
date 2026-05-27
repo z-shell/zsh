@@ -46,23 +46,34 @@ zi pack"5.2.4" for zsh
 zi pack"5.1.1" for zsh
 ```
 
-### Default Profile
+### System installation (opt-in)
 
-The ZI command that'll be run will be equivalent to:
+By default the package builds Zsh into `$ZPFX` and does **not** touch the system
+shell. To also replace `/bin/zsh`, set `ZSH_INSTALL_SYSTEM=1` when installing.
+The original is backed up to `/bin/zsh.bkp`; if that backup already exists,
+the system replacement step fails instead of overwriting it:
 
 ```shell
-zi ice as"null" lucid atclone'./.preconfig; print -P %F{208}Building \
-  Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
-  -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
-  ./configure --prefix="$ZPFX" --enable-shared >/dev/null && make install.bin install.fns \
-  install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
-  Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
-  -P %F{160}The build failed.%f'
-    atpull"%atclone" nocompile countdown git for \
-      zsh-users/zsh
+ZSH_INSTALL_SYSTEM=1 zi pack for zsh
 ```
 
-It copies the zsh binary onto `/bin/zsh`.
+### Default Profile
+
+The ZI command that runs for the default profile is generated from `scripts/build-manifest.py` and mirrored in `package.json`.
+
+In short, the default profile:
+
+- runs `./.preconfig`, then `./configure --prefix="$ZPFX"`
+- uses `LDFLAGS="-L/usr/lib -L/usr/local/lib"`
+- runs `make install` when `yodl` is available, otherwise falls back to `make install.bin install.fns install.modules`
+- installs into `$ZPFX` by default
+- copies the built shell to `/bin/zsh` only when `ZSH_INSTALL_SYSTEM=1` is set and `/bin/zsh.bkp` does not already exist
+
+By default it never replaces `/bin/zsh`. System replacement requires:
+
+```shell
+ZSH_INSTALL_SYSTEM=1 zi pack for zsh
+```
 
 ### ZI Completions Control
 
