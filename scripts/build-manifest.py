@@ -11,7 +11,7 @@ regenerated package.json.
 Notes on the recipe:
 - Builds into $ZPFX (the Zi prefix) via `./configure --prefix="$ZPFX"`.
 - Replacing the *system* /bin/zsh is opt-in: it only happens when the installer
-  sets `ZSH_INSTALL_SYSTEM` (e.g. `ZSH_INSTALL_SYSTEM=1 zi ...`). By default the
+  sets `ZSH_INSTALL_SYSTEM=1`. By default the
   package never touches /bin/zsh.
 """
 import json
@@ -43,9 +43,9 @@ BUILD = (
     "No {{cmd}}yodl{{warn}}, manual pages will not be built.; ((0)); }} && "
     "{{ make install; ((1)); }} || make install.bin install.fns install.modules }} "
     ">> /dev/null 2>&1 && "
-    "{{ [[ -n \"$ZSH_INSTALL_SYSTEM\" ]] && type sudo >> /dev/null 2>&1 && "
-    "[[ -e /bin/zsh ]] && sudo mv /bin/zsh /bin/zsh.bkp && sudo cp -vf Src/zsh /bin/zsh; "
-    "((1)); }} && m {{ok}}The build succeeded. || m {{failure}}The build failed."
+    "{{ [[ ${{ZSH_INSTALL_SYSTEM:-}} != 1 ]] || {{ type sudo >> /dev/null 2>&1 && "
+    "[[ -e /bin/zsh ]] && [[ ! -e /bin/zsh.bkp ]] && sudo mv /bin/zsh /bin/zsh.bkp && "
+    "sudo cp -vf Src/zsh /bin/zsh; }}; }} && m {{ok}}The build succeeded. || m {{failure}}The build failed."
 )
 
 

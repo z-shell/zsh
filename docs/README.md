@@ -49,8 +49,9 @@ zi pack"5.1.1" for zsh
 ### System installation (opt-in)
 
 By default the package builds Zsh into `$ZPFX` and does **not** touch the system
-shell. To also replace `/bin/zsh` (the original is backed up to `/bin/zsh.bkp`),
-set `ZSH_INSTALL_SYSTEM` when installing:
+shell. To also replace `/bin/zsh`, set `ZSH_INSTALL_SYSTEM=1` when installing.
+The original is backed up to `/bin/zsh.bkp`; if that backup already exists,
+the system replacement step fails instead of overwriting it:
 
 ```shell
 ZSH_INSTALL_SYSTEM=1 zi pack for zsh
@@ -66,7 +67,7 @@ In short, the default profile:
 - uses `LDFLAGS="-L/usr/lib -L/usr/local/lib"`
 - runs `make install` when `yodl` is available, otherwise falls back to `make install.bin install.fns install.modules`
 - installs into `$ZPFX` by default
-- copies the built shell to `/bin/zsh` only when `ZSH_INSTALL_SYSTEM` is set
+- copies the built shell to `/bin/zsh` only when `ZSH_INSTALL_SYSTEM=1` is set and `/bin/zsh.bkp` does not already exist
 
 By default it never replaces `/bin/zsh`. System replacement requires:
 
