@@ -58,21 +58,21 @@ ZSH_INSTALL_SYSTEM=1 zi pack for zsh
 
 ### Default Profile
 
-The ZI command that'll be run will be equivalent to:
+The ZI command that runs for the default profile is generated from `scripts/build-manifest.py` and mirrored in `package.json`.
+
+In short, the default profile:
+
+- runs `./.preconfig`, then `./configure --prefix="$ZPFX"`
+- uses `LDFLAGS="-L/usr/lib -L/usr/local/lib"`
+- runs `make install` when `yodl` is available, otherwise falls back to `make install.bin install.fns install.modules`
+- installs into `$ZPFX` by default
+- copies the built shell to `/bin/zsh` only when `ZSH_INSTALL_SYSTEM` is set
+
+By default it never replaces `/bin/zsh`. System replacement requires:
 
 ```shell
-zi ice as"null" lucid atclone'./.preconfig; print -P %F{208}Building \
-  Zsh...%f; CPPFLAGS="-I/usr/include -I/usr/local/include" CFLAGS="-g \
-  -O2 -Wall" LDFLAGS="-L/usr/libs -L/usr/local/libs" \
-  ./configure --prefix="$ZPFX" --enable-shared >/dev/null && make install.bin install.fns \
-  install.modules >/dev/null && sudo rm -f /bin/zsh && sudo cp -vf \
-  Src/zsh /bin/zsh && print -P %F{208}The build succeeded.%f || print \
-  -P %F{160}The build failed.%f'
-    atpull"%atclone" nocompile countdown git for \
-      zsh-users/zsh
+ZSH_INSTALL_SYSTEM=1 zi pack for zsh
 ```
-
-It copies the zsh binary onto `/bin/zsh`.
 
 ### ZI Completions Control
 
