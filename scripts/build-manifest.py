@@ -28,7 +28,7 @@ METADATA = {
 PLUGIN_INFO = {"user": "zsh-users", "plugin": "zsh"}
 
 # Selectable version profiles, in addition to the unpinned "default".
-VERSIONS = ["5.1.1", "5.2.4", "5.3.1", "5.4.2", "5.5.1", "5.6.2",
+VERSIONS = ["5.3.1", "5.4.2", "5.5.1", "5.6.2",
             "5.7.1", "5.8", "5.8.1", "5.9"]
 
 # Single source of truth for the build recipe. `{checkout}` is replaced per
