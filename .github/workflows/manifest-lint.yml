@@ -1,0 +1,35 @@
+name: Manifest Lint
+
+on:
+  push:
+    branches: ["main", "next"]
+    paths:
+      - "package.json"
+      - "scripts/build-manifest.py"
+  pull_request:
+    paths:
+      - "package.json"
+      - "scripts/build-manifest.py"
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate package.json parses
+        run: |
+          jq . package.json > /dev/null
+
+      - name: Validate zsh-data structure and default profile
+        run: |
+          jq -e '.["zsh-data"]["plugin-info"]["plugin"] == "zsh"' package.json > /dev/null
+          jq -e '.["zsh-data"]["zi-ices"]["default"]["atclone"] | length > 0' package.json > /dev/null
+
+      - name: Ensure manifest is up-to-date with generator script
+        run: |
+          python3 scripts/build-manifest.py
+          git diff --exit-code package.json || (echo "package.json is out of date. Please run scripts/build-manifest.py and commit the result." && exit 1)
