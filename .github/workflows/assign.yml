@@ -1,6 +1,9 @@
 ---
 name: "❇️ Assign"
 
+permissions:
+  contents: read
+
 on:
   issues:
     types:
