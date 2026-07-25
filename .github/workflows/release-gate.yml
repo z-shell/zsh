@@ -51,8 +51,8 @@ jobs:
           # something about *this tag* if the tag's package.json still matches the
           # default branch's current content. Fail loudly instead of silently
           # smoke-testing the wrong recipe.
-          head_pkg="$(gh api "repos/${GITHUB_REPOSITORY}/contents/package.json" --jq '.content' | base64 -d)"
-          if ! diff -u <(printf '%s' "$head_pkg") package.json; then
+          gh api "repos/${GITHUB_REPOSITORY}/contents/package.json" --jq '.content' | base64 -d > /tmp/head-package.json
+          if ! diff -u /tmp/head-package.json package.json; then
             echo "::error::package.json at $(git rev-parse HEAD) differs from the default branch's current HEAD. 'zi pack for zsh' fetches from the default branch, so this smoke test would not exercise this tag's recipe. Re-tag from current HEAD before relying on this gate."
             exit 1
           fi
