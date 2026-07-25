@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Validate package.json parses
         run: jq . package.json > /dev/null
@@ -38,9 +38,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Guard against testing a diverged HEAD
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -58,9 +59,14 @@ jobs:
           fi
 
       - name: Install zi
+        env:
+          ZI_PIN: c410f7de656eabb9db35aaa4eae54a40dee5ba8b # v1.0.3
         run: |
           zi_home="${XDG_DATA_HOME:-${HOME}/.local/share}/zi"
-          git clone --depth 1 https://github.com/z-shell/zi.git "${zi_home}/bin"
+          git init --quiet "${zi_home}/bin"
+          git -C "${zi_home}/bin" remote add origin https://github.com/z-shell/zi.git
+          git -C "${zi_home}/bin" fetch --depth 1 origin "${ZI_PIN}"
+          git -C "${zi_home}/bin" checkout --quiet FETCH_HEAD
           mkdir -p "${zi_home}"/{cache,completions,plugins,snippets}
           [[ -f "${zi_home}/bin/zi.zsh" ]] || { echo "::error::zi.zsh not found after install"; exit 1; }
 
