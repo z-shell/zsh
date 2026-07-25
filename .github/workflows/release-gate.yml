@@ -1,0 +1,94 @@
+---
+name: Release Gate
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  manifest-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate package.json parses
+        run: jq . package.json > /dev/null
+
+      - name: Validate zsh-data structure and default profile
+        run: |
+          jq -e '.["zsh-data"]["plugin-info"]["plugin"] == "zsh"' package.json > /dev/null
+          jq -e '.["zsh-data"]["zi-ices"]["default"]["atclone"] | length > 0' package.json > /dev/null
+
+      - name: Ensure manifest is up-to-date with generator script
+        run: |
+          python3 scripts/build-manifest.py
+          git diff --exit-code package.json || (echo "::error::package.json is out of date. Run scripts/build-manifest.py and commit the result." && exit 1)
+
+  install-smoke-test:
+    needs: manifest-validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Guard against testing a diverged HEAD
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # zi always resolves "zi pack for zsh" against this repo's default-branch
+          # HEAD (raw.githubusercontent.com/<owner>/<repo>/HEAD/package.json -- see
+          # z-shell/zi's install.zsh, .zi-get-package), never the ref that triggered
+          # this workflow. On a tag push that means the smoke test below only says
+          # something about *this tag* if the tag's package.json still matches the
+          # default branch's current content. Fail loudly instead of silently
+          # smoke-testing the wrong recipe.
+          gh api "repos/${GITHUB_REPOSITORY}/contents/package.json" --jq '.content' | base64 -d > /tmp/head-package.json
+          if ! diff -u /tmp/head-package.json package.json; then
+            echo "::error::package.json at $(git rev-parse HEAD) differs from the default branch's current HEAD. 'zi pack for zsh' fetches from the default branch, so this smoke test would not exercise this tag's recipe. Re-tag from current HEAD before relying on this gate."
+            exit 1
+          fi
+
+      - name: Install zi
+        env:
+          ZI_PIN: c410f7de656eabb9db35aaa4eae54a40dee5ba8b # v1.0.3
+        run: |
+          zi_home="${XDG_DATA_HOME:-${HOME}/.local/share}/zi"
+          git init --quiet "${zi_home}/bin"
+          git -C "${zi_home}/bin" remote add origin https://github.com/z-shell/zi.git
+          git -C "${zi_home}/bin" fetch --depth 1 origin "${ZI_PIN}"
+          git -C "${zi_home}/bin" checkout --quiet FETCH_HEAD
+          mkdir -p "${zi_home}"/{cache,completions,plugins,snippets}
+          [[ -f "${zi_home}/bin/zi.zsh" ]] || { echo "::error::zi.zsh not found after install"; exit 1; }
+
+      - name: Disposable install of zsh via zi pack
+        run: |
+          export ZPFX="${RUNNER_TEMP}/zpfx"
+          mkdir -p "${ZPFX}"
+          zi_bin="${XDG_DATA_HOME:-${HOME}/.local/share}/zi/bin"
+          zi_data="${RUNNER_TEMP}/zi-data"
+          env NO_COLOR=1 TERM=dumb ZPFX="${ZPFX}" zsh -c "
+            typeset -gA ZI
+            ZI[HOME_DIR]='${zi_data}'
+            source '${zi_bin}/zi.zsh'
+            autoload -Uz _zi
+            zi pack for zsh
+          "
+
+      - name: Startup and version smoke test
+        run: |
+          export ZPFX="${RUNNER_TEMP}/zpfx"
+          [[ -x "${ZPFX}/bin/zsh" ]] || { echo "::error::${ZPFX}/bin/zsh not found or not executable after install"; exit 1; }
+          "${ZPFX}/bin/zsh" -c 'exit 0' || { echo "::error::built zsh failed to start"; exit 1; }
+          version_output="$("${ZPFX}/bin/zsh" --version)"
+          echo "Reported version: ${version_output}"
+          [[ "${version_output}" == zsh\ * ]] || { echo "::error::unexpected --version output: ${version_output}"; exit 1; }
